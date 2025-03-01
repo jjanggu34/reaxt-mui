@@ -4,7 +4,7 @@
  * 사용 예시:
  * import { TextBox } from "@src/components/Input";
  */
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -13,7 +13,15 @@ import {
   Typography,
   Select,
   MenuItem,
+  Dialog,
+  DialogContent,
+  List,
+  ListItem,
+  Button,
 } from "@mui/material";
+
+import SelectPopup from './SelectPopup';
+
 
 // ✅ 일반 텍스트 박스
 export const TextBox = ({
@@ -139,7 +147,37 @@ export const SelectBox = ({
 }) => (
   <FormControl className="form-group">
     <FormLabel>{label}</FormLabel>
-    <Select value={value || ""} onChange={onChange} displayEmpty sx={{ width: "150px" }}>
+    <Select 
+      value={value || ""} 
+      onChange={onChange} 
+      displayEmpty 
+      sx={{ width: "150px" }}
+      MenuProps={{
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        transformOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        PaperProps: {
+          style: {
+            maxHeight: '40vh',
+            width: '100%',
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            borderRadius: '16px 16px 0 0',
+          }
+        },
+        sx: {
+          '& .MuiMenu-paper': {
+            borderRadius: '16px 16px 0 0',
+          }
+        }
+      }}
+    >
       {options.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
@@ -168,49 +206,17 @@ export const SelectInputBox = ({
   <FormControl className="form-group">
     <FormLabel>{selectLabel}</FormLabel>
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      <Select value={selectValue || ""} onChange={onSelectChange} displayEmpty>
-        {selectOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
+      <Box sx={{ width: "120px" }}>
+        <SelectPopup
+          label=""
+          options={selectOptions}
+          value={selectValue}
+          onChange={onSelectChange}
+          placeholder="선택"
+        />
+      </Box>
       <Input placeholder="번호 입력" value={inputValue} onChange={onInputChange} sx={{ width: "200px" }} />
     </Box>
-  </FormControl>
-);
-
-// ✅ SelectPopup 컴포넌트
-export const SelectPopup = ({
-  label,
-  options,
-  value,
-  onChange,
-  placeholder = "선택해주세요"
-}: {
-  label: string;
-  options: { label: string; value: string }[];
-  value?: string;
-  onChange?: (event: any) => void;
-  placeholder?: string;
-}) => (
-  <FormControl className="form-group">
-    <FormLabel>{label}</FormLabel>
-    <Select
-      value={value || ""}
-      onChange={onChange}
-      displayEmpty
-      sx={{ minWidth: "200px" }}
-    >
-      <MenuItem value="" disabled>
-        {placeholder}
-      </MenuItem>
-      {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </Select>
   </FormControl>
 );
 

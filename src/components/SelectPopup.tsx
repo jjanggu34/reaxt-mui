@@ -1,139 +1,148 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React, { useState } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Button,
+  Typography,
+  Dialog,
+  DialogContent,
+  List,
+  ListItem,
+} from "@mui/material";
 
-interface SelectOption {
-  value: string | number;
+interface SelectPopupProps {
   label: string;
-}
-
-interface SelectProps {
-  options: SelectOption[];
-  value: string | number;
-  onChange: (value: string | number) => void;
+  options: { label: string; value: string }[];
+  value?: string;
+  onChange?: (event: any) => void;
   placeholder?: string;
   disabled?: boolean;
-  width?: string;
 }
 
-const SelectContainer = styled.div<{ width?: string }>`
-  width: ${props => props.width || '100%'};
-`;
-
-const SelectButton = styled.button`
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
-  border: 1px solid #e1e1e1;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  outline: none;
-  text-align: left;
-
-  &:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-  }
-
-  &:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
-  }
-`;
-
-const Overlay = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: ${props => props.isOpen ? 'block' : 'none'};
-  z-index: 1000;
-`;
-
-const PopupContainer = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  padding: 20px;
-  transform: translateY(${props => props.isOpen ? '0' : '100%'});
-  transition: transform 0.3s ease-in-out;
-  z-index: 1001;
-  max-height: 70vh;
-  overflow-y: auto;
-`;
-
-const OptionList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const OptionItem = styled.li<{ isSelected: boolean }>`
-  padding: 12px 16px;
-  cursor: pointer;
-  background-color: ${props => props.isSelected ? '#f0f0f0' : 'transparent'};
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const Select: React.FC<SelectProps> = ({
+const SelectPopup = ({
+  label,
   options,
   value,
   onChange,
-  placeholder,
-  disabled,
-  width
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
+  placeholder = "선택해주세요",
+  disabled = false
+}: SelectPopupProps) => {
+  const [open, setOpen] = useState(false);
   const selectedOption = options.find(option => option.value === value);
 
   const handleOpen = () => {
     if (!disabled) {
-      setIsOpen(true);
+      setOpen(true);
     }
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    setOpen(false);
   };
 
-  const handleSelect = (selectedValue: string | number) => {
-    onChange(selectedValue);
+  const handleSelect = (selectedValue: string) => {
+    if (onChange) {
+      onChange({ target: { value: selectedValue } });
+    }
     handleClose();
   };
 
   return (
-    <>
-      <SelectContainer width={width}>
-        <SelectButton onClick={handleOpen} disabled={disabled}>
-          {selectedOption ? selectedOption.label : placeholder || '선택하세요'}
-        </SelectButton>
-      </SelectContainer>
+    <FormControl className="form-group">
+      <FormLabel>{label}</FormLabel>
+      <Button
+        onClick={handleOpen}
+        disabled={disabled}
+        sx={{
+          width: "150px",
+          height: "40px",
+          justifyContent: "space-between",
+          color: "inherit",
+          backgroundColor: "white",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          padding: "8px 12px",
+          textAlign: "left",
+          '&:hover': {
+            backgroundColor: "white",
+            border: "1px solid #666",
+          },
+          '&:after': {
+            content: '"▼"',
+            fontSize: '12px',
+            color: '#666'
+          }
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: '14px',
+            color: selectedOption ? 'inherit' : '#666',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {selectedOption ? selectedOption.label : placeholder}
+        </Typography>
+      </Button>
 
-      <Overlay isOpen={isOpen} onClick={handleClose} />
-      <PopupContainer isOpen={isOpen}>
-        <OptionList>
-          {options.map((option) => (
-            <OptionItem
-              key={option.value}
-              onClick={() => handleSelect(option.value)}
-              isSelected={option.value === value}
-            >
-              {option.label}
-            </OptionItem>
-          ))}
-        </OptionList>
-      </PopupContainer>
-    </>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth={false}
+        sx={{
+          '& .MuiBackdrop-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          '& .MuiDialog-paper': {
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            m: 0,
+            borderRadius: '16px 16px 0 0',
+            maxHeight: '70vh',
+            width: '100vw',
+            boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)'
+          },
+          '& .MuiDialog-container': {
+            alignItems: 'flex-end'
+          }
+        }}
+      >
+        <DialogContent sx={{ p: 0, maxWidth: '100%' }}>
+          <List sx={{ pt: 0, pb: 2 }}>
+            {options.map((option) => (
+              <ListItem
+                key={option.value}
+                onClick={() => handleSelect(option.value)}
+                sx={{
+                  py: 2,
+                  px: 3,
+                  textAlign: 'center',
+                  borderBottom: '1px solid #eee',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  color: option.value === value ? '#1976d2' : 'inherit',
+                  fontWeight: option.value === value ? 'bold' : 'normal',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                  },
+                  '&:active': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.08)'
+                  }
+                }}
+              >
+                {option.label}
+              </ListItem>
+            ))}
+          </List>
+        </DialogContent>
+      </Dialog>
+    </FormControl>
   );
 };
 
-export default Select; 
+export default SelectPopup; 

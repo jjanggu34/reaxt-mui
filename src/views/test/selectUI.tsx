@@ -68,8 +68,8 @@ const SelectUI = () => {
           options={options}
           value={customWidthValue}
           onChange={(value) => setCustomWidthValue(value.toString())}
-          placeholder="너비 300px Select"
-          width="300px"
+          placeholder="너비 800px Select"
+          width="800px"
         />
       </Section>
     </Container>
