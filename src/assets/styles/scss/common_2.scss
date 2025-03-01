@@ -1,0 +1,27 @@
+.form-group {
+  margin-bottom: 20px !important;
+
+  .MuiInputLabel-root {
+    color: var(--form-label);
+    font-size: var(--font14);
+  }
+
+  .MuiOutlinedInput-root {
+    border-radius: 5px;
+    border-color: var(--form-border);
+
+    &:hover {
+      border-color: var(--color-2);
+    }
+
+    &.Mui-focused {
+      border-color: var(--color-2);
+      border-width: 2px;
+    }
+  }
+
+  .MuiSelect-select {
+    padding: 10px;
+    font-size: var(--font16);
+  }
+}

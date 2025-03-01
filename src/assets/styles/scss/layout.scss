@@ -1,0 +1,19 @@
+/*---------------------------------------------
+    # Flex 레이아웃
+---------------------------------------------*/
+
+// 기본 flex 스타일
+.flex-row { display: flex; flex-direction: row; }
+.flex-col { display: flex; flex-direction: column; }
+.col { position: relative; width: 100%; }
+
+// 그리드 컬럼 스타일 (1~10)
+@for $i from 1 through 10 {
+  .col-#{$i} { width: $i * 10%; }
+}
+
+// Gap 스타일
+$gap-sizes: 5, 10, 15, 20, 30;
+@each $size in $gap-sizes {
+  .gap#{$size} { gap: #{$size}px; }
+}

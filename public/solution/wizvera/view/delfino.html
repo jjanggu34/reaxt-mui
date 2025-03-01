@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    
+    <title>G10 전자서명</title>
+
+    <script src="/solution/wizvera/delfino/jquery/jquery-1.6.4.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        var _SITE_SystemMode  = "test"; // real, test 사설인증은 테스트 서버 미사용
+        var _SITE_SystemLang  = "KOR"; // KOR, ENG, CHN, JPN
+        var _SITE_SiteName    = "delfino";     // pc, mobile, tablet
+        var _SITE_ModuleType  = ""; // "", G2, G3, G4
+    </script>
+    <script src="/solution/wizvera/delfino/delfino_config.js" charset="utf-8"></script>
+    <script src="/solution/wizvera/delfino/delfino_internal.min.js" charset="utf-8"></script>
+    <script src="/solution/wizvera/delfino/delfino.js" charset="utf-8"></script>
+    <script src="/solution/wizvera/delfino/delfino_site.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        Delfino.setModule('G10'); // Delfino G10 Setting
+
+        $(document).ready(function() {
+
+            var params = getParameter(window.location);// 파라미터
+
+            var authType = params['authType'] ? params['authType'] : '';
+
+            switch (params["txGbnCd"]) {
+                case "login":
+                    console.log("로그인 처리");
+                    login(authType);
+                    break;
+
+                case "sign":
+                    console.log("전자서명 처리");
+                    sign(authType);
+                    break;
+                default:
+                    console.error("구분 없음");
+                    window.parent.postMessage({'status':0,'message':'작업구분 없음'}, "*");
+            }
+
+
+            function login(authType){
+                var signOptions = {};
+                signOptions.provider = authType;
+                signOptions.displayProviders = authType;
+                signOptions.addNonce = true;
+                
+                var cgUserInfo = {};
+                cgUserInfo.userName = '';
+                cgUserInfo.userPhone = '';
+                cgUserInfo.userBirthday = '';
+                signOptions.userInfo = cgUserInfo;
+                
+                Delfino.login("login=certLogin", signOptions, function(result){
+                    if (typeof (result) == 'string')result=JSON.parse(result);
+                    window.parent.postMessage(result, "*");
+                });
+            }
+
+            function sign(authType){
+                var signOptions = {};
+                signOptions.provider = authType;
+                signOptions.displayProviders = authType;
+                signOptions.addNonce = true;
+                
+                var cgUserInfo = {};
+                cgUserInfo.userName = '';
+                cgUserInfo.userPhone = '';
+                cgUserInfo.userBirthday = '';
+                signOptions.userInfo = cgUserInfo;
+                
+                Delfino.login("login=certLogin", signOptions, function(result){
+                    if (typeof (result) == 'string')result=JSON.parse(result);
+                    window.parent.postMessage(result, "*");
+                });
+            }
+            
+
+            function getParameter(location) {
+                var queryString = location.search.substring(1); // `?` 제거
+                var params = {};
+                if (queryString) {
+                    var pairs = queryString.split("&"); // `&`로 구분하여 key=value 형태로 분리
+                    $.each(pairs, function (index, pair) {
+                        var keyValue = pair.split("=");
+                        var key = decodeURIComponent(keyValue[0]); // 파라미터 이름
+                        var value = decodeURIComponent(keyValue[1] || ""); // 값 (없으면 빈 문자열)
+
+                        params[key] = value; // JSON 객체에 저장
+                    });
+                }
+                return params; // JSON 객체 반환
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

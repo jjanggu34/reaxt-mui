@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="24px" viewBox="0 0 48 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo/kakaobank</title>
+    <g id="logo/kakaobank" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-14" transform="translate(12.000000, 0.000000)">
+            <path d="M22.0656,24 L1.9344,24 C0.8688,24 0,23.1312 0,22.0656 L0,1.9344 C0,0.8688 0.8688,0 1.9344,0 L22.0656,0 C23.1312,0 24,0.8688 24,1.9344 L24,22.0656 C24,23.1312 23.1312,24 22.0656,24 Z" id="Path" fill="#FAE300" fill-rule="nonzero"></path>
+            <path d="M13.8579794,4.7998134 C15.0538255,4.7998134 17.713311,5.89105328 17.713311,8.3999067 C17.713311,10.0724756 17.0702941,11.2755333 15.7842603,12.0090798 C17.0702941,12.6656251 17.713311,13.8671694 17.713311,15.6137129 C17.713311,18.2335282 15.0538255,19.2183461 13.8579794,19.2183461 L6.89447443,19.2183461 L6.89447443,4.7998134 Z M12.7304348,8.55652174 L11.2695652,8.55652174 L11.2695652,15.4434783 L12.7304348,15.4434783 L12.7304348,8.55652174 Z" id="Combined-Shape" fill="#000000"></path>
+        </g>
+        <rect id="Rectangle" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="48" height="24"></rect>
+    </g>
+</svg>

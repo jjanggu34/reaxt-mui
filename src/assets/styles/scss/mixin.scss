@@ -1,0 +1,33 @@
+
+// 믹스인: 플렉스 정렬
+@mixin flex-center {
+    display: flex;
+    -webkit-box-pack:center;
+    -ms-flex-pack:center;
+    align-items: center;
+    -webkit-align-items:center;
+    justify-content: center;
+    -webkit-justify-content:center;
+}
+
+// 버튼이 3개일 경우 스타일 적용
+@mixin three-button-layout($parent) {
+    #{$parent}:has(> button:nth-child(3):last-child) {
+        display: flex;
+        flex-wrap: wrap;
+
+        button:nth-child(1),
+        button:nth-child(2) {
+            flex: 1;
+        }
+
+        button:last-child {
+            width: 100%;
+        }
+    }
+}
+
+// 믹스인을 특정 요소에 적용
+@include three-button-layout(".popup-footer"); // 팝업 하단 버튼
+@include three-button-layout(".content-footer"); // 컨텐츠 하단 버튼
+@include three-button-layout(".btn-area"); // 컨텐츠 버튼

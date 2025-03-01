@@ -1,0 +1,121 @@
+@use './mixin';
+
+
+/*---------------------------------------------
+	#etc
+---------------------------------------------*/
+// 스크린 리더용 스타일 (숨김 처리)
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow: hidden;  border:0; clip:rect(0, 0, 0, 0); white-space: nowrap; }
+// 팝업 내부 임시 iframe
+.popup-iframe { width: 100%; height: 100%; border: none;}
+//임시 패딩
+.btn-area { padding-top:20px; }
+
+/*---------------------------------------------
+	#팝업 [Type : 풀팝업 , 바텀시트, 일반, 알럿&모달]
+---------------------------------------------*/
+.popup-container { position: fixed; display: flex; flex-direction: column; top: 0; bottom: 0; left: 0; right: 0; width: 100%; background-color: var(--white); overflow: hidden;
+    
+    // 팝업 헤더
+    .pop-header {  @include mixin.flex-center; width: 100%; height: 70px; overflow: hidden;
+
+      .left { position: absolute; left: 10px; }
+      .right { position: absolute; right: 10px; }
+      .pop-tit { font-size: var(--font18); font-weight: var(--font-w-b); }
+
+      .btn {
+        &.btn-back,
+        &.btn-close { width: 40px; height: 40px; }
+        &.btn-back { background: var(--ico-back) no-repeat 50% / 40px auto; }
+        &.btn-close { background: var(--ico-close) no-repeat 50% / 40px auto; }
+      }
+
+    }
+
+    // 팝업 본문
+    .pop-body { width: auto; height: 100%; padding: 0 20px 20px; overflow-y: auto; background-color: var(--white); }
+  
+    // 팝업 푸터
+    .popup-footer { padding: 15px 20px 20px 20px; background-color: var(--white) }
+  
+    // 바텀시트
+    &.btmSheet { top: initial; height: 70%; border-radius: 16px 16px 0 0; }
+  
+    // 가운데 일반 팝업
+    &.center { margin: 24px; width: auto; border-radius: 16px; box-shadow: 0px 2px 15px var(--dim); }
+    
+    // 모달&알럿
+    &.modal { flex-direction:initial;  align-items: end; z-index:9999; background-color: var(--dim);
+        .pop-body {  width:100%; height:auto; padding:0; border-radius: 16px; margin:20px;
+            p { padding:30px 20px 15px 20px; text-align: center;font-size: var(--font16); font-weight: var(--font-w-r); }
+        }
+        .btn{ height:54px; }
+    }
+
+  }
+
+
+/*---------------------------------------------
+	#버튼 [Type: 컨텐츠, 컨텐츠 하단, 팝업 하단]
+---------------------------------------------*/
+.btn { display: flex; align-items: center; justify-content: center; width: 100%; border-radius: 5px; font-weight: var(--font-w-r); font-size: var(--font16); }
+
+// 컨텐츠 버튼 높이 및 폰트
+.btn-area {
+    .btn{ height:48px; font-size: var(--font16); }
+}
+
+// 컨텐츠 하단 버튼, 팝업 하단 높이 및 폰트
+.content-footer,
+.popup-footer {
+    .btn { height:58px; font-size: var(--font18); }
+}
+
+// 컨텐츠 버튼, 컨텐츠 하단, 팝업 하단 스타일 공통 적용
+.btn-area,
+.content-footer,
+.popup-footer {
+    @include mixin.flex-center;
+    .btn{  border-radius: 29px; color:var(--btn-txt); }
+}
+
+// 컨텐츠 버튼 스타일 적용
+.btn-area {
+    .btn {
+        &.btn-primary { background-color: var(--btn-con-primary); color: var(--white); }
+        &.btn-secondary { background-color: var(--btn-con-secondary); }
+        //라인
+        &.MuiButton-outlined.btn-secondary { background-color: var(--white); border:1px solid var(--btn-line); }
+    }
+}
+
+//컨텐츠 하단, 팝업 하단 버튼 스타일 공통 적용
+.content-footer,
+.popup-footer {
+    .btn {
+        &.btn-primary { background-color: var(--btn-primary); color: var(--white); }
+        &.btn-secondary { background-color: var(--btn-secondary); }
+        //라인
+        &.MuiButton-outlined.btn-secondary { background-color: var(--white); border:1px solid var(--btn-line); }
+    }
+}
+
+/*---------------------------------------------
+   #탭 [Type: line, bg, style]
+---------------------------------------------*/
+// 탭 기본
+.tab-container {
+    .tab-item {
+         border-bottom: 1px solid var(--tab-line);
+        button {
+            &.Mui-selected{color: var(--tab-line-active); transition: all 2s;} //Mui 활성화
+            /*flex: 1 1 auto;*/ width:100px; min-height:inherit; max-width: inherit; min-width: inherit; padding:16px 0;
+        }
+        .css-ehhs8s-MuiTabs-indicator { /*display:none;*/  border-bottom: 2px solid var(--tab-line-active); }//Mui 활성화
+    }
+    
+    // &scroll{
+        
+    // }
+}
+

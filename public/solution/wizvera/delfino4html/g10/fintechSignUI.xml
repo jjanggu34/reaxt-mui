@@ -1,0 +1,101 @@
+<style>
+#fintechSignPage {
+	background: white;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: white url(images/g10/icon/img_send_blue.gif) no-repeat center/50%;
+    background-position: 50% 20%;
+}
+
+#fintechSignPage div.description {
+	position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+	padding: 10px;
+	font-size: 14px;
+    line-height: 24px;
+	text-align: center;
+	word-break: keep-all;
+}
+
+#fintechSignPage button.ok_btn {
+    width: 50%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: 0;
+    background: #1D79D3;
+    color: #ffffff;
+}
+
+#fintechSignPage button.ok_btn:disabled {
+    background-color: #D6D6D6 !important;
+	color:#000;
+	cursor:not-allowed !important;
+}
+
+#fintechSignPage .auto button.cancel_btn {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    background: #949494;
+    color: #000000;
+}
+
+#fintechSignPage .manual button.cancel_btn {
+    width: 50%;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    background: #949494;
+    color: #000000;
+}
+
+</style>
+
+<!-- 
+#fintechSignPage, .auto, .manual, .ok_btn. ,cancel_btn은 필수요소 
+아래 dom 구조는 유지해야함
+<div id="#fintechSignPage">
+  <div class="auto">
+    ...
+	<button class="cancel_btn"/>
+	...
+  </div>
+  <div class="manual">
+    ...
+	<button class="ok_btn"/>
+	<button class="cancel_btn"/>
+	...
+  </div>
+</div>
+-->
+<div id="fintechSignPage" style="display: none;">
+	<div class="auto" style="display: none;">
+		<div class="description">
+			<div>인증요청이 휴대폰으로 전송되었습니다.</div>
+			<div>선택한 인증수단의 모바일앱 알림을 확인해주세요.</div>
+		</div>
+		<button class="cancel_btn">취소</button>
+	</div>
+	<div class="manual" style="display: none;">
+		<div class="description">
+			<div>인증요청이 휴대폰으로 전송되었습니다.</div>
+			<div>선택한 인증수단의 모바일앱 알림을 확인해주세요.</div>
+			<br/>
+			<div>인증을 완료한 후 아래 인증완료 버튼을 눌러주세요.</div>
+		</div>
+		<button class="ok_btn">인증완료</button>
+		<button class="cancel_btn">취소</button>
+	</div>
+</div>
