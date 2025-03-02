@@ -59,6 +59,10 @@ main {
     }
   }
 
+  .MuiBox-root {
+    position: relative;
+  }
+
   .MuiInput-root {
     width: 100%;
     &::before,
@@ -90,8 +94,19 @@ main {
   }
 
   .form-input-box {
+    position: relative;
     align-items: center;
     gap: 10px;
+    &.mony {
+      input {
+        padding-right: 30px;
+      }
+      p {
+        position: absolute;
+        top: 15px;
+        right: 0;
+      }
+    }
   }
 }
 

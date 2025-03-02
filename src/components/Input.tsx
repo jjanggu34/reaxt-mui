@@ -55,6 +55,50 @@ export const NumberBox = ({
   </Box>
 );
 
+// ✅ 금액 입력 박스
+export const MoneyBox = ({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value?: string;
+  onChange?: (value: string) => void;
+}) => {
+  // 숫자만 추출하는 함수
+  const getOnlyNumbers = (str: string) => str.replace(/[^\d]/g, '');
+  
+  // 천 단위 콤마 포맷팅 함수
+  const formatNumber = (num: string) => {
+    const numbers = getOnlyNumbers(num);
+    if (numbers === '') return '';
+    return new Intl.NumberFormat('ko-KR').format(parseInt(numbers));
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatNumber(event.target.value);
+    if (onChange) {
+      onChange(formattedValue);
+    }
+  };
+
+  return (
+    <Box className="form-input">
+      <FormLabel>{label}</FormLabel>
+      <Box className="form-input-box mony">
+        <Input
+          value={value}
+          onChange={handleChange}
+          placeholder="0"
+          sx={{ textAlign: "right" }}
+          inputProps={{ style: { textAlign: 'right' } }}
+        />
+        <Typography>만원</Typography>
+      </Box>
+    </Box>
+  );
+};
+
 // ✅ 주민등록번호 입력 필드 (생년월일 + 성별코드)
 export const ResidentNumber = ({
   label,
@@ -82,16 +126,10 @@ export const ResidentNumber = ({
           value={firstValue} 
           onChange={onFirstChange} 
           inputProps={{ maxLength: 6 }} 
-          sx={{ 
-            width: "120px", 
-            textAlign: "center",
-            opacity: firstFocused ? 1 : 0.7,
-            transition: 'opacity 0.2s'
-          }}
           onFocus={() => setFirstFocused(true)}
           onBlur={() => setFirstFocused(false)}
         />
-        <Typography sx={{ textAlign: "center" }}>-</Typography>
+        <Typography>-</Typography>
         <Input 
           type="password" 
           placeholder="뒷자리(7자리)" 
@@ -102,7 +140,11 @@ export const ResidentNumber = ({
             width: "140px", 
             textAlign: "center",
             opacity: secondFocused ? 1 : 0.7,
-            transition: 'opacity 0.2s'
+            transition: 'opacity 0.2s',
+            WebkitTextSecurity: 'disc',
+            '&::-ms-reveal': {
+              display: 'none'
+            }
           }}
           onFocus={() => setSecondFocused(true)}
           onBlur={() => setSecondFocused(false)}
@@ -259,7 +301,6 @@ export default {
   EmailBox,
   PwdBox,
   ResidentNumber,
-  LimitInput,
   SelectBox,
   SelectInputBox,
   SelectPopup

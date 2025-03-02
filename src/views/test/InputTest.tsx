@@ -6,7 +6,8 @@ import {
   EmailBox,
   PwdBox,
   ResidentNumber,
-  SelectInputBox
+  SelectInputBox,
+  MoneyBox
 } from "@src/components/Input";
 
 /**
@@ -15,6 +16,7 @@ import {
 const InputTest  = () => {
   const [text, setText] = useState("");
   const [number, setNumber] = useState("");
+  const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,7 +25,7 @@ const InputTest  = () => {
   const [secondPart, setSecondPart] = useState("");
 
   // ✅ 셀렉트 + 입력 필드 조합 (예: 휴대폰 번호)
-  const [phonePrefix, setPhonePrefix] = useState("SKT");
+  const [phonePrefix, setPhonePrefix] = useState("010");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
@@ -31,6 +33,7 @@ const InputTest  = () => {
       {/* ✅ 일반 입력 필드 */}
       <TextBox label="텍스트 입력" value={text} onChange={(e) => setText(e.target.value)} />
       <NumberBox label="숫자 입력" value={number} onChange={(e) => setNumber(e.target.value)} />
+      <MoneyBox label="금액 입력" value={amount} onChange={(value) => setAmount(value)} />
       <EmailBox label="이메일 입력" value={email} onChange={(e) => setEmail(e.target.value)} />
       <PwdBox label="비밀번호 입력" value={password} onChange={(e) => setPassword(e.target.value)} />
 
