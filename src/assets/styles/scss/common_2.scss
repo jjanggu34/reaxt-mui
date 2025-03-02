@@ -75,6 +75,7 @@ main {
       }
     }
   }
+  /**select 버튼 스타일 재정의*/
   .MuiButton-root {
     padding: 15px 0 !important;
     height: 100%;
@@ -91,5 +92,12 @@ main {
   .form-input-box {
     align-items: center;
     gap: 10px;
+  }
+}
+
+//select 팝업 스타일
+.MuiDialog-root .MuiDialog-paper {
+  max-width: 100%;
+  .MuiBox-root {
   }
 }

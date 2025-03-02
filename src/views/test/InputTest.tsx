@@ -23,7 +23,7 @@ const InputTest  = () => {
   const [secondPart, setSecondPart] = useState("");
 
   // ✅ 셀렉트 + 입력 필드 조합 (예: 휴대폰 번호)
-  const [phonePrefix, setPhonePrefix] = useState("010");
+  const [phonePrefix, setPhonePrefix] = useState("SKT");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
@@ -44,11 +44,14 @@ const InputTest  = () => {
       />
       {/* ✅ 셀렉트 + 입력 필드 조합 (예: 휴대전화 번호 입력) */}
       <SelectInputBox
-        selectLabel="통신사번호"
+        selectLabel="휴대폰 선택"
         selectOptions={[
           { label: "SKT", value: "SKT" },
           { label: "KT", value: "KT" },
           { label: "LGU+", value: "LGU+" },
+          { label: "SKT(알뜰폰)", value: "SKT(알뜰폰)" },
+          { label: "KT(알뜰폰)", value: "KT(알뜰폰)" },
+          { label: "LGU+(알뜰폰)", value: "LGU+(알뜰폰)" },
         ]}
         selectValue={phonePrefix}
         onSelectChange={(e) => setPhonePrefix(e.target.value as string)}

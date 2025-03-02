@@ -239,12 +239,12 @@ export const SelectInputBox = ({
   <Box className="form-input">
     <FormLabel>{selectLabel}</FormLabel>
     <Box className="form-input-box flex-row">
-        <SelectPopup className="form-select-btn"
+        <SelectPopup
           label=""
           options={selectOptions}
           value={selectValue}
           onChange={onSelectChange}
-          placeholder="선택"
+          placeholder="통신사 선택"
           withFormControl={false}
         />
       <Input placeholder="번호 입력" value={inputValue} onChange={onInputChange} sx={{ width: "200px" }} />

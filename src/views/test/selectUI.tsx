@@ -62,7 +62,6 @@ const SelectUI = () => {
       </Section>
 
       <Section>
-        <Title>커스텀 너비 Select</Title>
         <Description>width 속성으로 너비를 조절할 수 있습니다.</Description>
         <SelectPopup
           options={options}

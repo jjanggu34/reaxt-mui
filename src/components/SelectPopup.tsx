@@ -8,7 +8,10 @@ import {
   DialogContent,
   List,
   ListItem,
+  IconButton,
+  Box,
 } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface BaseSelectPopupProps {
   label: string;
@@ -133,8 +136,30 @@ const SelectPopup = ({
           }
         }}
       >
-        <DialogContent sx={{ p: 0, maxWidth: '100%' }}>
-          <List sx={{ pt: 0, pb: 2 }}>
+        <Box className="select-popup-header">
+          <Typography variant="h6" sx={{ 
+            fontSize: '18px',
+            fontWeight: 'bold',
+            flex: 1,
+            textAlign: 'center'
+          }}>
+            {placeholder}
+          </Typography>
+          <IconButton
+            edge="end"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: '#666'
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        <DialogContent sx={{ p: 0, maxWidth: '100%', width: '100%' }}>
+          <List sx={{ pt: 0, pb: 2, width: '100%' }}>
             {options.map((option) => (
               <ListItem
                 key={option.value}
@@ -142,6 +167,7 @@ const SelectPopup = ({
                 sx={{
                   py: 2,
                   px: 3,
+                  width: '100%',
                   textAlign: 'center',
                   borderBottom: '1px solid #eee',
                   cursor: 'pointer',
