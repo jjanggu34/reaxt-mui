@@ -44,7 +44,6 @@ main {
 .form-input {
   margin-bottom: 20px;
   width: 100%;
-
   // MUI FormControl 스타일 재정의
   &.MuiFormControl-root {
     width: 100%;
@@ -53,7 +52,7 @@ main {
 
   label {
     display: block;
-    color: var(--fornt-label);
+    color: var(--font-label);
     font-size: var(--font14);
     &.Mui-focused {
       color: var(--color-2);
@@ -61,36 +60,36 @@ main {
   }
 
   .MuiInput-root {
-    display: block;
     width: 100%;
-    margin-top: 10px;
-    border-color: var(--form-border);
-
-    &:hover {
-      border-color: var(--color-2);
+    &::before,
+    &::after {
+      display: none;
     }
-  }
-
-  .MuiBox-root {
-    border: 0;
-
-    button {
-      border-radius: 5px;
-      border: 1px solid var(--form-border);
-
-      &:hover {
-        border-color: var(--color-2);
-      }
+    input {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--form-border);
+      transition: border-color 0.3s ease-in-out;
 
       &:focus {
-        border-color: var(--color-2);
-        border-width: 2px;
+        border-color: var(--primary);
       }
     }
   }
+  .MuiButton-root {
+    padding: 15px 0 !important;
+    height: 100%;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid var(--form-border);
+    &:hover {
+      border: 0;
+      border-bottom: 1px solid var(--primary);
+      border-color: var(--primary);
+    }
+  }
 
-  .MuiSelect-select {
-    padding: 10px;
-    font-size: var(--font16);
+  .form-input-box {
+    align-items: center;
+    gap: 10px;
   }
 }

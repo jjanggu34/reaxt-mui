@@ -33,10 +33,10 @@ export const TextBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     {label && <FormLabel>{label}</FormLabel>}
     <Input placeholder="내용을 입력해주세요." value={value} onChange={onChange} />
-  </FormControl>
+  </Box>
 );
 
 // ✅ 숫자 입력 박스
@@ -68,16 +68,49 @@ export const ResidentNumber = ({
   secondValue?: string;
   onFirstChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSecondChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) => (
-  <Box className="form-input">
-    <FormLabel>{label}</FormLabel>
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      <Input type="number" placeholder="생년월일(6자리)" value={firstValue} onChange={onFirstChange} inputProps={{ maxLength: 6 }} sx={{ width: "120px", textAlign: "center" }} />
-      <Typography sx={{ textAlign: "center" }}>-</Typography>
-      <Input type="password" placeholder="뒷자리(7자리)" value={secondValue} onChange={onSecondChange} inputProps={{ maxLength: 7 }} sx={{ width: "140px", textAlign: "center" }} />
+}) => {
+  const [firstFocused, setFirstFocused] = useState(false);
+  const [secondFocused, setSecondFocused] = useState(false);
+
+  return (
+    <Box className="form-input">
+      <FormLabel>{label}</FormLabel>
+      <Box className="form-input-box flex-row">
+        <Input 
+          type="number" 
+          placeholder="생년월일(6자리)" 
+          value={firstValue} 
+          onChange={onFirstChange} 
+          inputProps={{ maxLength: 6 }} 
+          sx={{ 
+            width: "120px", 
+            textAlign: "center",
+            opacity: firstFocused ? 1 : 0.7,
+            transition: 'opacity 0.2s'
+          }}
+          onFocus={() => setFirstFocused(true)}
+          onBlur={() => setFirstFocused(false)}
+        />
+        <Typography sx={{ textAlign: "center" }}>-</Typography>
+        <Input 
+          type="password" 
+          placeholder="뒷자리(7자리)" 
+          value={secondValue} 
+          onChange={onSecondChange} 
+          inputProps={{ maxLength: 7 }} 
+          sx={{ 
+            width: "140px", 
+            textAlign: "center",
+            opacity: secondFocused ? 1 : 0.7,
+            transition: 'opacity 0.2s'
+          }}
+          onFocus={() => setSecondFocused(true)}
+          onBlur={() => setSecondFocused(false)}
+        />
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 // ✅ 이메일 입력 박스
 export const EmailBox = ({
@@ -89,10 +122,10 @@ export const EmailBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Input type="email" placeholder="이메일을 입력해주세요." value={value} onChange={onChange} />
-  </FormControl>
+  </Box>
 );
 
 // ✅ 비밀번호 입력 박스
@@ -105,10 +138,10 @@ export const PwdBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Input type="password" placeholder="비밀번호를 입력해주세요." value={value} onChange={onChange} />
-  </FormControl>
+  </Box>
 );
 
 
@@ -124,13 +157,13 @@ export const LimitInput = ({
   value?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Input type="number" placeholder={placeholder} value={value} onChange={onChange} sx={{ fontWeight: "bold" }} />
       <Typography sx={{ fontWeight: "bold" }}>원</Typography>
     </Box>
-  </FormControl>
+  </Box>
 );
 
 // ✅ 선택 박스 (Select)
@@ -145,7 +178,7 @@ export const SelectBox = ({
   value?: string;
   onChange?: (event: any) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Select 
       value={value || ""} 
@@ -184,7 +217,7 @@ export const SelectBox = ({
         </MenuItem>
       ))}
     </Select>
-  </FormControl>
+  </Box>
 );
 
 // ✅ Select + Input 조합 (예: 휴대폰 번호 입력)
@@ -203,11 +236,10 @@ export const SelectInputBox = ({
   inputValue?: string;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-input">
+  <Box className="form-input">
     <FormLabel>{selectLabel}</FormLabel>
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      <Box sx={{ width: "120px" }}>
-        <SelectPopup
+    <Box className="form-input-box flex-row">
+        <SelectPopup className="form-select-btn"
           label=""
           options={selectOptions}
           value={selectValue}
@@ -215,10 +247,9 @@ export const SelectInputBox = ({
           placeholder="선택"
           withFormControl={false}
         />
-      </Box>
       <Input placeholder="번호 입력" value={inputValue} onChange={onInputChange} sx={{ width: "200px" }} />
     </Box>
-  </FormControl>
+  </Box>
 );
 
 // ✅ 기본 export
