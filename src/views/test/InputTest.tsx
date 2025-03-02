@@ -27,7 +27,7 @@ const InputTest  = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box className="formGroup">
       {/* ✅ 일반 입력 필드 */}
       <TextBox label="텍스트 입력" value={text} onChange={(e) => setText(e.target.value)} />
       <NumberBox label="숫자 입력" value={number} onChange={(e) => setNumber(e.target.value)} />
@@ -44,12 +44,11 @@ const InputTest  = () => {
       />
       {/* ✅ 셀렉트 + 입력 필드 조합 (예: 휴대전화 번호 입력) */}
       <SelectInputBox
-        selectLabel="휴대전화 번호"
+        selectLabel="통신사번호"
         selectOptions={[
-          { label: "010", value: "010" },
-          { label: "011", value: "011" },
-          { label: "016", value: "016" },
-          { label: "019", value: "019" }
+          { label: "SKT", value: "SKT" },
+          { label: "KT", value: "KT" },
+          { label: "LGU+", value: "LGU+" },
         ]}
         selectValue={phonePrefix}
         onSelectChange={(e) => setPhonePrefix(e.target.value as string)}

@@ -33,7 +33,7 @@ export const TextBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     {label && <FormLabel>{label}</FormLabel>}
     <Input placeholder="내용을 입력해주세요." value={value} onChange={onChange} />
   </FormControl>
@@ -49,10 +49,10 @@ export const NumberBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Input type="number" placeholder="숫자를 입력해주세요." value={value} onChange={onChange} />
-  </FormControl>
+  </Box>
 );
 
 // ✅ 주민등록번호 입력 필드 (생년월일 + 성별코드)
@@ -69,7 +69,7 @@ export const ResidentNumber = ({
   onFirstChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSecondChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <Box className="form-group">
+  <Box className="form-input">
     <FormLabel>{label}</FormLabel>
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Input type="number" placeholder="생년월일(6자리)" value={firstValue} onChange={onFirstChange} inputProps={{ maxLength: 6 }} sx={{ width: "120px", textAlign: "center" }} />
@@ -89,7 +89,7 @@ export const EmailBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     <FormLabel>{label}</FormLabel>
     <Input type="email" placeholder="이메일을 입력해주세요." value={value} onChange={onChange} />
   </FormControl>
@@ -105,7 +105,7 @@ export const PwdBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     <FormLabel>{label}</FormLabel>
     <Input type="password" placeholder="비밀번호를 입력해주세요." value={value} onChange={onChange} />
   </FormControl>
@@ -124,7 +124,7 @@ export const LimitInput = ({
   value?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     <FormLabel>{label}</FormLabel>
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Input type="number" placeholder={placeholder} value={value} onChange={onChange} sx={{ fontWeight: "bold" }} />
@@ -145,7 +145,7 @@ export const SelectBox = ({
   value?: string;
   onChange?: (event: any) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     <FormLabel>{label}</FormLabel>
     <Select 
       value={value || ""} 
@@ -203,7 +203,7 @@ export const SelectInputBox = ({
   inputValue?: string;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <FormControl className="form-group">
+  <FormControl className="form-input">
     <FormLabel>{selectLabel}</FormLabel>
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Box sx={{ width: "120px" }}>
@@ -213,6 +213,7 @@ export const SelectInputBox = ({
           value={selectValue}
           onChange={onSelectChange}
           placeholder="선택"
+          withFormControl={false}
         />
       </Box>
       <Input placeholder="번호 입력" value={inputValue} onChange={onInputChange} sx={{ width: "200px" }} />

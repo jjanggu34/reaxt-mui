@@ -10,7 +10,7 @@ import {
   ListItem,
 } from "@mui/material";
 
-interface SelectPopupProps {
+interface BaseSelectPopupProps {
   label: string;
   options: { label: string; value: string }[];
   value?: string;
@@ -19,13 +19,24 @@ interface SelectPopupProps {
   disabled?: boolean;
 }
 
+interface SelectPopupWithFormProps extends BaseSelectPopupProps {
+  withFormControl: true;
+}
+
+interface SelectPopupWithoutFormProps extends BaseSelectPopupProps {
+  withFormControl: false;
+}
+
+type SelectPopupProps = SelectPopupWithFormProps | SelectPopupWithoutFormProps;
+
 const SelectPopup = ({
   label,
   options,
   value,
   onChange,
   placeholder = "선택해주세요",
-  disabled = false
+  disabled = false,
+  withFormControl = true
 }: SelectPopupProps) => {
   const [open, setOpen] = useState(false);
   const selectedOption = options.find(option => option.value === value);
@@ -47,45 +58,55 @@ const SelectPopup = ({
     handleClose();
   };
 
-  return (
-    <FormControl className="form-group">
-      <FormLabel>{label}</FormLabel>
-      <Button
-        onClick={handleOpen}
-        disabled={disabled}
-        sx={{
-          width: "150px",
-          height: "40px",
-          justifyContent: "space-between",
-          color: "inherit",
+  const SelectButton = (
+    <Button
+      onClick={handleOpen}
+      disabled={disabled}
+      sx={{
+        width: "150px",
+        height: "40px",
+        justifyContent: "space-between",
+        color: "inherit",
+        backgroundColor: "white",
+        border: "1px solid #ccc",
+        borderRadius: "4px",
+        padding: "8px 12px",
+        textAlign: "left",
+        '&:hover': {
           backgroundColor: "white",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          padding: "8px 12px",
-          textAlign: "left",
-          '&:hover': {
-            backgroundColor: "white",
-            border: "1px solid #666",
-          },
-          '&:after': {
-            content: '"▼"',
-            fontSize: '12px',
-            color: '#666'
-          }
+          border: "1px solid #666",
+        },
+        '&:after': {
+          content: '"▼"',
+          fontSize: '12px',
+          color: '#666'
+        }
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: '14px',
+          color: selectedOption ? 'inherit' : '#666',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap'
         }}
       >
-        <Typography
-          sx={{
-            fontSize: '14px',
-            color: selectedOption ? 'inherit' : '#666',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
-            whiteSpace: 'nowrap'
-          }}
-        >
-          {selectedOption ? selectedOption.label : placeholder}
-        </Typography>
-      </Button>
+        {selectedOption ? selectedOption.label : placeholder}
+      </Typography>
+    </Button>
+  );
+
+  return (
+    <>
+      {withFormControl ? (
+        <FormControl className="form-group">
+          <FormLabel>{label}</FormLabel>
+          {SelectButton}
+        </FormControl>
+      ) : (
+        SelectButton
+      )}
 
       <Dialog
         open={open}
@@ -141,7 +162,7 @@ const SelectPopup = ({
           </List>
         </DialogContent>
       </Dialog>
-    </FormControl>
+    </>
   );
 };
 
