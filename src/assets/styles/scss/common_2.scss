@@ -75,10 +75,17 @@ main {
       transition: border-color 0.3s ease-in-out;
 
       &:focus {
-        border-color: var(--primary);
+        border-color: var(--primary) !important;
       }
     }
   }
+
+  .masked {
+    .MuiInput-root:has(input:focus) + .MuiInput-root input {
+      border-bottom: 1px solid var(--primary) !important;
+    }
+  }
+
   /**select 버튼 스타일 재정의*/
   .MuiButton-root {
     padding: 15px 0 !important;
@@ -113,6 +120,12 @@ main {
 //select 팝업 스타일
 .MuiDialog-root .MuiDialog-paper {
   max-width: 100%;
-  .MuiBox-root {
+  .select-popup-header {
+    h6 {
+      color: var(--color-2);
+      font-size: var(--font18);
+      font-weight: var(--font-w-m);
+      text-align: left;
+    }
   }
 }

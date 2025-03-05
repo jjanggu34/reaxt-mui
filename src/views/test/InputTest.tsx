@@ -7,7 +7,8 @@ import {
   PwdBox,
   ResidentNumber,
   SelectInputBox,
-  MoneyBox
+  MoneyBox,
+  ErrorTextBox
 } from "@src/components/Input";
 
 /**
@@ -31,7 +32,13 @@ const InputTest  = () => {
   return (
     <Box className="formGroup">
       {/* ✅ 일반 입력 필드 */}
-      <TextBox label="텍스트 입력" value={text} onChange={(e) => setText(e.target.value)} />
+      <TextBox label="텍스트 입력" value={text} onChange={(e) => setText(e.target.value)} />  
+      <ErrorTextBox 
+        label="에러 문구" 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        errorMessage="올바른 형식으로 입력해주세요."
+      />  
       <NumberBox label="숫자 입력" value={number} onChange={(e) => setNumber(e.target.value)} />
       <MoneyBox label="금액 입력" value={amount} onChange={(value) => setAmount(value)} />
       <EmailBox label="이메일 입력" value={email} onChange={(e) => setEmail(e.target.value)} />

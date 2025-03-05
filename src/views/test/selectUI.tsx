@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import SelectPopup from '@src/components/SelectPopup';
+import SelectPopup from '@src/components/SelectPopup_';
 
 const Container = styled.div`
   padding: 20px;

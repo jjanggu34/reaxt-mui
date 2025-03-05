@@ -46,9 +46,36 @@ export const openBottomPopup = ({ component: Component, title, param, nFunc }: P
       //팝업 컴포넌트 생성
       return (
         <MemoryRouter>
-          <Modal open={open} onClose={() => { popupClose(); }}>
-            <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-              <Box className="popup-container btmSheet">
+          <Modal 
+            open={open} 
+            onClose={() => { popupClose(); }}
+            sx={{
+              '& .MuiBackdrop-root': {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }}
+          >
+            <Slide 
+              direction="up" 
+              in={open} 
+              mountOnEnter 
+              unmountOnExit
+              timeout={300}
+            >
+              <Box 
+                className="popup-container btmSheet"
+                sx={{
+                  position: 'fixed',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  maxHeight: '80vh',
+                  borderRadius: '16px 16px 0 0',
+                  backgroundColor: 'white',
+                  boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)',
+                  transform: 'none'
+                }}
+              >
                 <Box className="pop-header">
                   <Typography variant="h2" className="pop-tit">{title}</Typography>
                   <Button aria-label="close" onClick={() => { popupClose(); }} className="btn btn-close right">

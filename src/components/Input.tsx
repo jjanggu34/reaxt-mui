@@ -6,19 +6,15 @@
  */
 import React, { useState } from "react";
 import {
-  FormControl,
   FormLabel,
   Input,
   Box,
   Typography,
   Select,
   MenuItem,
-  Dialog,
-  DialogContent,
-  List,
-  ListItem,
-  Button,
+  FormHelperText,
 } from "@mui/material";
+import { InfoOutlined } from "@mui/icons-material";
 
 import SelectPopup from './SelectPopup';
 
@@ -38,6 +34,35 @@ export const TextBox = ({
     <Input placeholder="내용을 입력해주세요." value={value} onChange={onChange} />
   </Box>
 );
+
+
+// ✅ 에러 텍스트 박스
+export const ErrorTextBox = ({
+  label,
+  value,
+  onChange,
+  errorMessage = "Oops! something is wrong.",
+}: {
+  label?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
+}) => (
+  <Box className="form-input">
+    {label && <FormLabel error>{label}</FormLabel>}
+    <Input 
+      error 
+      placeholder="내용을 입력해주세요." 
+      value={value} 
+      onChange={onChange}
+    />
+    <FormHelperText error sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+      <InfoOutlined fontSize="small" />
+      {errorMessage}
+    </FormHelperText>
+  </Box>
+);
+
 
 // ✅ 숫자 입력 박스
 export const NumberBox = ({
@@ -116,6 +141,12 @@ export const ResidentNumber = ({
   const [firstFocused, setFirstFocused] = useState(false);
   const [secondFocused, setSecondFocused] = useState(false);
 
+  // 마스킹된 값을 표시하는 함수
+  const getMaskedValue = (value?: string) => {
+    if (!value) return '';
+    return '●'.repeat(value.length);
+  };
+
   return (
     <Box className="form-input">
       <FormLabel>{label}</FormLabel>
@@ -130,25 +161,49 @@ export const ResidentNumber = ({
           onBlur={() => setFirstFocused(false)}
         />
         <Typography>-</Typography>
-        <Input 
-          type="password" 
-          placeholder="뒷자리(7자리)" 
-          value={secondValue} 
-          onChange={onSecondChange} 
-          inputProps={{ maxLength: 7 }} 
-          sx={{ 
-            width: "140px", 
-            textAlign: "center",
-            opacity: secondFocused ? 1 : 0.7,
-            transition: 'opacity 0.2s',
-            WebkitTextSecurity: 'disc',
-            '&::-ms-reveal': {
-              display: 'none'
-            }
-          }}
-          onFocus={() => setSecondFocused(true)}
-          onBlur={() => setSecondFocused(false)}
-        />
+        <Box sx={{ position: 'relative', width: '100%' }}>
+          <Input 
+            type="password"
+            placeholder="뒷자리(7자리)" 
+            value={secondValue} 
+            onChange={onSecondChange} 
+            inputProps={{ maxLength: 7 }} 
+            sx={{ 
+              width: "100%", 
+              textAlign: "center",
+              opacity: 0,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              zIndex: 1,
+              '&:focus': {
+                '& + .masked-input': {
+                  borderBottom: '2px solid var(--primary)',
+                  transition: 'border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+                }
+              }
+            }}
+            onFocus={() => setSecondFocused(true)}
+            onBlur={() => setSecondFocused(false)}
+          />
+          <Input 
+            readOnly
+            className="masked-input"
+            value={getMaskedValue(secondValue)}
+            placeholder="●●●●●●" 
+            sx={{ 
+              width: "100%", 
+              textAlign: "center",
+              backgroundColor: 'transparent',
+              '& .MuiInput-input': { 
+                cursor: 'default',
+                userSelect: 'none',
+                color: 'text.primary'
+              },
+              transition: 'border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   );
