@@ -16,6 +16,7 @@ import {
  */
 const InputTest  = () => {
   const [text, setText] = useState("");
+  const [errorText, setErrorText] = useState("");
   const [number, setNumber] = useState("");
   const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
@@ -35,8 +36,8 @@ const InputTest  = () => {
       <TextBox label="텍스트 입력" value={text} onChange={(e) => setText(e.target.value)} />  
       <ErrorTextBox 
         label="에러 문구" 
-        value={text} 
-        onChange={(e) => setText(e.target.value)} 
+        value={errorText} 
+        onChange={(e) => setErrorText(e.target.value)} 
         errorMessage="올바른 형식으로 입력해주세요."
       />  
       <NumberBox label="숫자 입력" value={number} onChange={(e) => setNumber(e.target.value)} />
