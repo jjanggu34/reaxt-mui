@@ -50,12 +50,16 @@ main {
     margin-bottom: 20px;
   }
 
+  .Mui-error {
+    color:var(--error);
+  }  
+
   label {
     display: block;
     color: var(--font-label);
     font-size: var(--font14);
     &.Mui-focused {
-      color: var(--color-2);
+      color: var(--color-2); 
     }
   }
 

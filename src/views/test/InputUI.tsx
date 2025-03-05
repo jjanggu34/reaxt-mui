@@ -47,17 +47,7 @@ const InputUI  = () => {
         onSecondChange={(e) => setSecondPart(e.target.value)}
       />
 
-      {/* ✅ 셀렉트 박스 */}
-      <SelectBox
-        label="셀렉트 선택"
-        options={[
-          { label: "011", value: "011" },
-          { label: "016", value: "016" },
-          { label: "019", value: "019" }
-        ]}
-        value={selectedValue}
-        onChange={(e) => setSelectedValue(e.target.value as string)}
-      />
+    ㄴ
 
       {/* ✅ 셀렉트 + 입력 필드 조합 (예: 휴대전화 번호 입력) */}
       <SelectInputBox

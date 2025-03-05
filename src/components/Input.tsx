@@ -131,12 +131,14 @@ export const ResidentNumber = ({
   secondValue,
   onFirstChange,
   onSecondChange,
+  errorMessage,
 }: {
   label: string;
   firstValue?: string;
   secondValue?: string;
   onFirstChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSecondChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }) => {
   const [firstFocused, setFirstFocused] = useState(false);
   const [secondFocused, setSecondFocused] = useState(false);
@@ -149,7 +151,7 @@ export const ResidentNumber = ({
 
   return (
     <Box className="form-input">
-      <FormLabel>{label}</FormLabel>
+      <FormLabel error={!!errorMessage}>{label}</FormLabel>
       <Box className="form-input-box flex-row">
         <Input 
           type="number" 
@@ -159,6 +161,7 @@ export const ResidentNumber = ({
           inputProps={{ maxLength: 6 }} 
           onFocus={() => setFirstFocused(true)}
           onBlur={() => setFirstFocused(false)}
+          error={!!errorMessage}
         />
         <Typography>-</Typography>
         <Box sx={{ position: 'relative', width: '100%' }}>
@@ -168,6 +171,7 @@ export const ResidentNumber = ({
             value={secondValue} 
             onChange={onSecondChange} 
             inputProps={{ maxLength: 7 }} 
+            error={!!errorMessage}
             sx={{ 
               width: "100%", 
               textAlign: "center",
@@ -190,7 +194,7 @@ export const ResidentNumber = ({
             readOnly
             className="masked-input"
             value={getMaskedValue(secondValue)}
-            placeholder="●●●●●●" 
+            error={!!errorMessage}
             sx={{ 
               width: "100%", 
               textAlign: "center",
@@ -205,6 +209,12 @@ export const ResidentNumber = ({
           />
         </Box>
       </Box>
+      {errorMessage && (
+        <FormHelperText error sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <InfoOutlined fontSize="small" />
+          {errorMessage}
+        </FormHelperText>
+      )}
     </Box>
   );
 };
@@ -325,6 +335,7 @@ export const SelectInputBox = ({
   onSelectChange,
   inputValue,
   onInputChange,
+  errorMessage,
 }: {
   selectLabel: string;
   selectOptions: { label: string; value: string }[];
@@ -332,20 +343,33 @@ export const SelectInputBox = ({
   onSelectChange?: (event: any) => void;
   inputValue?: string;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }) => (
   <Box className="form-input">
-    <FormLabel>{selectLabel}</FormLabel>
+    <FormLabel error={!!errorMessage}>{selectLabel}</FormLabel>
     <Box className="form-input-box flex-row">
-        <SelectPopup
-          label=""
-          options={selectOptions}
-          value={selectValue}
-          onChange={onSelectChange}
-          placeholder="통신사 선택"
-          withFormControl={false}
-        />
-      <Input placeholder="번호 입력" value={inputValue} onChange={onInputChange} sx={{ width: "200px" }} />
+      <SelectPopup
+        label=""
+        options={selectOptions}
+        value={selectValue}
+        onChange={onSelectChange}
+        placeholder="통신사 선택"
+        withFormControl={false}
+      />
+      <Input 
+        placeholder="번호 입력" 
+        value={inputValue} 
+        onChange={onInputChange} 
+        sx={{ width: "200px" }} 
+        error={!!errorMessage}
+      />
     </Box>
+    {errorMessage && (
+      <FormHelperText error sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <InfoOutlined fontSize="small" />
+        {errorMessage}
+      </FormHelperText>
+    )}
   </Box>
 );
 
